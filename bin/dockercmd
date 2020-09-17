@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Create file from Env vars, because the cups postprocessing script doesn't have env vars
+env
+
+echo "${TARGETADDRESSCMD}" > /usr/local/bin/postprocessing-targetaddresscmd
+echo "${FILENAMECMD}" > /usr/local/bin/postprocessing-filenamecmd
+echo "${BODYCMD}" > /usr/local/bin/postprocessing-bodycmd
+echo "${SUBJECTCMD}" > /usr/local/bin/postprocessing-subjectcmd
+echo "${MSMTPOPTSCMD}" > /usr/local/bin/postprocessing-msmtpoptscmd
+chmod +x /usr/local/bin/*
+
+/usr/sbin/cupsd -f
+

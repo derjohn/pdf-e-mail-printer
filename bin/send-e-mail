@@ -1,0 +1,16 @@
+#!/bin/sh
+
+FILENAME=${1}
+TARGETADDRESS=${2}
+SUBJECT=${3:-'PDF E-Mail'}
+BODY=${4:-'Attachment:PDF'}
+TMPFILE=$(mktemp -u)
+MSMTPOPTS=$(/usr/local/bin/postprocessing-msmtpoptscmd)
+
+echo "Sending E-Mail Mail-Command: msmtp ${MSMTPOPTS} ${TARGETADDRESS}" > /proc/1/fd/1
+echo "Encoded Tmpfile: ${TMPFILE}" > /proc/1/fd/1
+echo "${BODY}" | mpack -s "${SUBJECT}" ${FILENAME} -o ${TMPFILE}
+cat ${TMPFILE} | msmtp ${MSMTPOPTS} ${TARGETADDRESS}
+
+rm ${TMPFILE}
+
