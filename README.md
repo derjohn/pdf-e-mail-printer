@@ -61,9 +61,9 @@ I personally use that printer with xfreerdp and inject it as a ressource in a vi
 xfreerdp .... /printer:"pdf_to_email_in_docker,Apple Color LW 12/660 PS"
 ```
 
-That Apple printer as postscript one and is included in Windows since aeons. (Windows XP)
+That Apple printer is a postscript one and is included in Windows since aeons. (Windows XP)
 
-On Debian and Ubuntu the package printer-driver-cups-pdf contains the PPDs (Printer descriptions). They reside in /usr/share/ppd/cups-pdf/ , but the good thing is: Your client doesn't need them.The cups servers delivers the info to the client.
+On Debian and Ubuntu the package printer-driver-cups-pdf contains the PPDs (Printer descriptions). They reside in /usr/share/ppd/cups-pdf/ , but the good thing is: Your client doesn't need them. The cups server delivers the details about the printer to the client.
 
 ## Other CUPS and clout print stuff & inspirations
 https://wiki.ubuntuusers.de/CUPS-PDF/
@@ -74,6 +74,8 @@ https://github.com/olbat/dockerfiles/tree/master/cupsd
 1. I already installed 'stapler' in the container. This is a utility to make stamp or watermarks over a PDF.
 This might be handy, if you want to print e.g. a company logo on the PDF.
 2. Create a sample Kubernetes Deployment
+3. Multiple printers with different configs
+4. Save the PDFs on a volume, so that you can copy them fro the filesystem
 
 ## Contact
 If you do something with this system, I would like to hear, how you use it! I will happlily accept Pull Requests.
