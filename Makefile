@@ -1,5 +1,5 @@
-DKRIMAGE:=derjohn/pdf-mail-printer:latest
-CNTNAME:=cups-to-pdf-e-mail
+DKRIMAGE:=derjohn/pdf-e-mail-printer:latest
+CNTNAME:=pdf-e-mail-printer
 # See: envrc.sample how to override those
 export MSMTPOPTSCMD?=echo "--auth=on --user=foobar@example.com --passwordeval=echo\ secret --protocol=smtp --port 587 --tls --tls-starttls=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=smtp.example.com -f myemail@example.com"
 export TARGETADDRESSCMD?=/usr/bin/pdfgrep -Ph '[a-zA-Z.-\\+][a-zA-Z.-\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' $${1} | head -n1 | egrep -o '[a-zA-Z.-\\+][a-zA-Z.-\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' | grep -v internet@net-lab.net
@@ -7,7 +7,7 @@ export FILENAMECMD?=echo "pdf-to-e-mail-printer-document"
 export SUBJECTCMD?=echo "Document attached as PDF"
 export BODYCMD?=echo "PDF Attachment"
 
-.PHONY=help docker-build docker-run docker-exec docker-logs
+.PHONY=help show-env docker-build docker-run docker-exec docker-logs
 
 docker-build: ## Build the container - if you don't want to use the version available on docker hub.
 	docker build -t $(DKRIMAGE) .
@@ -35,3 +35,4 @@ show-env: ## Show the currently configured env vars
 
 help:
 	@awk 'BEGIN {FS = ":.*##"; printf "Usage: make \033[36m<target>\033[0m\n"} /^[0-9a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
