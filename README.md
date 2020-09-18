@@ -1,5 +1,8 @@
 # E-Mail to PDF Printer, based on Cups / IPP
 
+## Origin
+The original source of this file resides on [github.com/derjohn](https://github.com/derjohn/pdf-e-mail-printer)
+
 ## Usage
 Everything is a Makefile. Use ```make <TAB><TAB>``` or ```make help```
 
