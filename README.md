@@ -7,6 +7,16 @@ Basically ```make docker-run``` should work, if you have docker installed.
 
 The container name is by default pdf-e-mail-printer, the image is derjohn/pdf-e-mail-printer. This is also available on [dockerhub](https://hub.docker.com/repository/docker/derjohn/pdf-e-mail-printer)
 
+### make help
+```
+Usage: make <target>
+  docker-build  Build the container - if you don't want to use the version available on docker hub.
+  docker-run  Start the container
+  docker-exec  Enters the container. Only needed for debugging.
+  docker-logs  Shows the logs of the running container.
+  show-env    Show the currently configured env vars
+```
+
 ## Configuration of the container
 The configuration is done via env vars. Look into the file envrc.sample.
 Your might 
