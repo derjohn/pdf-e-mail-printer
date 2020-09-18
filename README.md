@@ -82,8 +82,10 @@ On Debian and Ubuntu the package printer-driver-cups-pdf contains the PPDs (Prin
 
 ## Other CUPS and clout print stuff & inspirations
 https://wiki.ubuntuusers.de/CUPS-PDF/
-https://hub.docker.com/r/olbat/cupsd
+
 https://github.com/olbat/dockerfiles/tree/master/cupsd
+
+https://github.com/majochoc/cloudprint
 
 ## Todo
 1. I already installed 'stapler' in the container. This is a utility to make stamp or watermarks over a PDF.
