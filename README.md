@@ -95,6 +95,6 @@ This might be handy, if you want to print e.g. a company logo on the PDF.
 4. Save the PDFs on a volume, so that you can copy them fro the filesystem
 
 ## Contact
-If you do something with this system, I would like to hear, how you use it! I will happlily accept Pull Requests.
+If you do something with this system, I would like to hear, how you use it! I will happily accept Pull Requests.
 
 
