@@ -1,20 +1,32 @@
-## Set the option to the e-mail send command. It's msmtp under the hood, so look into the man page of msmtp for details.
-export MSMTPOPTSCMD='echo "--auth=on --user=foobar@example.com --passwordeval=echo\ secret --protocol=smtp --port 587 --tls --tls-starttls=on --tls-trust-file=/etc/ssl/certs/ca-certificates.crt --host=smtp.example.com -f myemail@example.com"'
+## Set the option to the e-mail send command. It's swaks under the hood, so look into the man page of swaks for details. Swaks supports env vars, so we are lucky only to export them. But you can use shell escapes inside, if you quote them corretly.
+export BODYCMD="echo '${BODY}'"
+export SWAKSENVVARS="$(cat <<EOF
+export SWAKS_OPT_from='papersaver@example.com'
+export SWAKS_OPT_h_From='"Robot for PDFs" <papersaver@example.com>'
+export SWAKS_OPT_server='imap.example.com'
+export SWAKS_OPT_port='587'
+export SWAKS_OPT_timeout='40s'
+export SWAKS_OPT_auth='LOGIN'
+export SWAKS_OPT_tls=''
+export SWAKS_OPT_auth_user="papersaver_example_com"
+export SWAKS_OPT_auth_password="swordfish"
+EOF
+)"
 
 ## The command the generates the target e-mail address. In the example we extract it from the PDF, but
 ## you can also fetch it e.g. with curl from a REST endpoint or whatever.
 ## In this example we use the first e-mail we can find in the PDF, but we exclude our own, which might appear in the footer.
 ## We need ${1} as the PDF filename in here.
-export TARGETADDRESSCMD="/usr/bin/pdfgrep -Ph '[a-zA-Z.-\\+][a-zA-Z.-\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' \${1} | head -n1 | egrep -o '[a-zA-Z.-\\+][a-zA-Z.-\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' | grep -v myemail@example.com"
+export TARGETADDRESSCMD="/usr/bin/pdfgrep -Ph '[a-zA-Z.-\\\\+][a-zA-Z.-\\\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' \${1} | head -n1 | egrep -o '[a-zA-Z.-\\+][a-zA-Z.-\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' | grep -v dont.extract.this@example.com"
 
 ## How should the attachment's filename be like? Again, we extract it from the PDF in the example. ${1} is the filename of the printed PDF.
-export FILENAMECMD="echo net-lab-dokument-\$(pdfgrep -Ph 'Nr. [0-9]*' \${1} | head -n1 | sed -e 's/^[^0-9]*\([0-9]*\).*/\1/')"
+export FILENAMECMD="echo pdf-e-mail-printer-document-\$(pdfgrep -Ph 'Nr. [0-9]*' \${1} | head -n1 | sed -e 's/^[^0-9]*\([0-9]*\).*/\1/').pdf"
 
 ## How should we generate the subject of the e-mail? Keep in mind there are commands, not only strings!
-export SUBJECTCMD='echo "A document from ACME Corp., attached as PDF"'
+export SUBJECTCMD='echo "fully digital - paperless document inside."'
 
-## And now the same thing for the body of the e-mail. It's multiline, so we make it with a two step interpolation to keep it readable. 
-BODY=$(cat <<EOF
+## And now the same thing for the body of the e-mail. It's multiline in bash, that's why the code looks so ugly.
+export BODYCMD="echo '$(cat <<EOF
 Hello,
 this e-mail was generated using pdf-e-mail-printer.
 
@@ -25,5 +37,4 @@ PDF Robot.
 -- 
 Look on github for derjohn!
 EOF
-)
-BODYCMD="echo '${BODY}'"
+)'"

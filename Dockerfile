@@ -19,7 +19,7 @@ RUN apt-get update \
   python3 \
   python3-pip \
   msmtp \
-  mpack \
+  swaks \
   locales \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*

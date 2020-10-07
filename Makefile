@@ -16,7 +16,7 @@ docker-run: ## Start the container
 	docker stop $(CNTNAME) ||:
 	docker rm $(CNTNAME) ||:
 	docker run --rm -d -p 10631:10631 -v /var/run/dbus:/var/run/dbus \
-	-e MSMTPOPTSCMD="$${MSMTPOPTSCMD}" \
+	-e SWAKSENVVARS="$${SWAKSENVVARS}" \
 	-e TARGETADDRESSCMD="$${TARGETADDRESSCMD}" \
 	-e FILENAMECMD="$${FILENAMECMD}" \
 	-e SUBJECTCMD="$${SUBJECTCMD}" \

@@ -4,13 +4,9 @@ FILENAME=${1}
 TARGETADDRESS=${2}
 SUBJECT=${3:-'PDF E-Mail'}
 BODY=${4:-'Attachment:PDF'}
-TMPFILE=$(mktemp -u)
-MSMTPOPTS=$(/usr/local/bin/postprocessing-msmtpoptscmd)
+. /usr/local/bin/postprocessing-swaksenvcars
 
-echo "Sending E-Mail Mail-Command: msmtp ${MSMTPOPTS} ${TARGETADDRESS}" > /proc/1/fd/1
-echo "Encoded Tmpfile: ${TMPFILE}" > /proc/1/fd/1
-echo "${BODY}" | mpack -s "${SUBJECT}" ${FILENAME} -o ${TMPFILE}
-cat ${TMPFILE} | msmtp ${MSMTPOPTS} ${TARGETADDRESS}
+echo "Sending from: ${SWAKS_OPT_from} to: ${TARGETADDRESS} with file ${FILENAME}"
 
-rm ${TMPFILE}
+swaks -n --to ${TARGETADDRESS} --header "Content-Type: text/plain; charset='utf-8'" --header "Subject: ${SUBJECT}" --body "${BODY}" --attach-type application/pdf --attach ${FILENAME}
 
