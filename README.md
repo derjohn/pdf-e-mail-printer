@@ -90,11 +90,10 @@ https://github.com/majochoc/cloudprint
 ## Todo
 1. I already installed 'stapler' in the container. This is a utility to make stamp or watermarks over a PDF.
 This might be handy, if you want to print e.g. a company logo on the PDF.
-2. Create a sample Kubernetes Deployment
+2. Create a sample Kubernetes deployment
 3. Multiple printers with different configs
-4. Save the PDFs on a volume, so that you can copy them fro the filesystem
+4. Save the PDFs on a volume, so that you can copy them from the filesystem
 
 ## Contact
-If you do something with this system, I would like to hear, how you use it! I will happily accept Pull Requests.
-
+If you do something with this system, I would like to hear, how you use it! I will happily accept pull requests.
 
