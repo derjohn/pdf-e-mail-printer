@@ -29,6 +29,9 @@ docker-exec: ## Enters the container. Only needed for debugging.
 docker-logs: ## Shows the logs of the running container.
 	docker logs $(CNTNAME) 
 
+docker-stop: ## Stop the container
+	docker stop $(CNTNAME) ||:
+
 show-env: ## Show the currently configured env vars
 	@echo "\033[36mCurrently configureted variables:\033[0m"
 	@env | grep CMD=
