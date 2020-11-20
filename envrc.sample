@@ -17,7 +17,7 @@ EOF
 ## you can also fetch it e.g. with curl from a REST endpoint or whatever.
 ## In this example we use the first e-mail we can find in the PDF, but we exclude our own, which might appear in the footer.
 ## We need ${1} as the PDF filename in here.
-export TARGETADDRESSCMD="/usr/bin/pdfgrep -Ph '[a-zA-Z.-\\\\+][a-zA-Z.-\\\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' \${1} | head -n1 | egrep -o '[a-zA-Z.-\\+][a-zA-Z.-\\+]*@[a-zA-Z.-]+\.[a-zA-Z.-]*' | grep -v dont.extract.this@example.com"
+export TARGETADDRESSCMD="/usr/bin/pdfgrep -Ph '[_0-9a-zA-Z.-\\\\+][_0-9a-zA-Z.-\\\\+]*@[0-9a-zA-Z.-]+\.[0-9a-zA-Z.-]*' \${1} | head -n1 | egrep -o '[_0-9a-zA-Z.-\\+][_0-9a-zA-Z.-\\+]*@[0-9a-zA-Z.-]+\.[0-9a-zA-Z.-]*' | grep -v dont.extract.this@example.com"
 
 ## How should the attachment's filename be like? Again, we extract it from the PDF in the example. ${1} is the filename of the printed PDF.
 export FILENAMECMD="echo pdf-e-mail-printer-document-\$(pdfgrep -Ph 'Nr. [0-9]*' \${1} | head -n1 | sed -e 's/^[^0-9]*\([0-9]*\).*/\1/').pdf"
