@@ -22,6 +22,10 @@ export TARGETADDRESSCMD="/usr/bin/pdfgrep -Ph '[_0-9a-zA-Z.-\\\\+][_0-9a-zA-Z.-\
 ## How should the attachment's filename be like? Again, we extract it from the PDF in the example. ${1} is the filename of the printed PDF.
 export FILENAMECMD="echo pdf-e-mail-printer-document-\$(pdfgrep -Ph 'Nr. [0-9]*' \${1} | head -n1 | sed -e 's/^[^0-9]*\([0-9]*\).*/\1/').pdf"
 
+## If you want to archive the PDF more than only in the container filesystem, define the archive command here
+## You could for example upload it to a nextcloud. If you don't set this variable, this step will be ignored.
+# ARCHIVECMD='curl -u cloudprint:XXXXXXXX  -T "${FILENAMEPATH}" "https://nextcloud.YOURDOMAIN.de/remote.php/webdav/SOMEFOLDER/${ARCHIVEFILENAME}"'
+
 ## How should we generate the subject of the e-mail? Keep in mind there are commands, not only strings!
 export SUBJECTCMD='echo "fully digital - paperless document inside."'
 

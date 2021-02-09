@@ -8,5 +8,5 @@ BODY=${4:-'Attachment:PDF'}
 
 echo "Sending from: ${SWAKS_OPT_from} to: ${TARGETADDRESS} with file ${FILENAME}"
 
-swaks -n --to ${TARGETADDRESS} --header "Content-Type: text/plain; charset='utf-8'" --header "Subject: ${SUBJECT}" --body "${BODY}" --attach-type application/pdf --attach ${FILENAME}
+swaks -n --to ${TARGETADDRESS} --header "Content-Type: text/plain; charset=windows-1252" --header "Subject: ${SUBJECT}" --body "${BODY}" --attach-type application/pdf --attach ${FILENAME}
 

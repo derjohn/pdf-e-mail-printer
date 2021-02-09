@@ -5,6 +5,7 @@ env
 
 echo "${TARGETADDRESSCMD}" > /usr/local/bin/postprocessing-targetaddresscmd
 echo "${FILENAMECMD}" > /usr/local/bin/postprocessing-filenamecmd
+if [ ! -z "${ARCHIVECMD}" ]; then echo "${ARCHIVECMD}" > /usr/local/bin/postprocessing-archivecmd; fi
 echo "${BODYCMD}" > /usr/local/bin/postprocessing-bodycmd
 echo "${SUBJECTCMD}" > /usr/local/bin/postprocessing-subjectcmd
 echo "${SWAKSENVVARS}" > /usr/local/bin/postprocessing-swaksenvcars

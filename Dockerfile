@@ -1,4 +1,4 @@
-FROM bitnami/minideb:buster
+FROM debian:buster-slim
 MAINTAINER himself@derjohn.de
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
@@ -20,6 +20,7 @@ RUN apt-get update \
   python3-pip \
   msmtp \
   swaks \
+  curl \
   locales \
 && apt-get clean \
 && rm -rf /var/lib/apt/lists/*
@@ -66,6 +67,8 @@ RUN sed -i -r 's|^BrowseProtocols.*$|BrowseRemoteProtocols none|' /etc/cups/cups
 # Make the Postprocesser do it's magic and send E-Mails
 RUN sed -i -r 's|^#PostProcessing.*$|PostProcessing /usr/local/bin/postprocessing|' /etc/cups/cups-pdf.conf
 RUN sed -i -r 's|^#AnonUser.*$|AnonUser root|' /etc/cups/cups-pdf.conf
+
+RUN mkdir -p /archive
 
 CMD ["/usr/local/bin/dockercmd"]
 

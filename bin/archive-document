@@ -1,0 +1,19 @@
+#!/bin/sh
+
+export FILENAMEPATH=${1}
+export TARGETADDRESS=${2}
+export ARCHIVEPATH='/archive'
+export DATESTAMP=$(date +%F-%H%M)
+export FILENAME=$(basename ${FILENAMEPATH} .pdf)
+export TARGETADDRESSNOAT=$(echo ${TARGETADDRESS} | tr '@' '_' | tr '.' '_')
+export ARCHIVEFILENAME="${FILENAME}_${TARGETADDRESSNOAT}_${DATESTAMP}.pdf"
+echo "Archiving document ${ARCHIVEFILENAME}"
+
+echo "... in path ${ARCHIVEPATH}/${ARCHIVEFILENAME}"
+cp ${FILENAMEPATH} "${ARCHIVEPATH}/${ARCHIVEFILENAME}"
+
+if [ -e /usr/local/bin/postprocessing-archivecmd ]; then
+  echo "executing archive command ..."
+  /usr/local/bin/postprocessing-archivecmd
+fi
+

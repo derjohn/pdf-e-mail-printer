@@ -19,8 +19,10 @@ docker-run: ## Start the container
 	-e SWAKSENVVARS="$${SWAKSENVVARS}" \
 	-e TARGETADDRESSCMD="$${TARGETADDRESSCMD}" \
 	-e FILENAMECMD="$${FILENAMECMD}" \
+	-e ARCHIVECMD="$${ARCHIVECMD}" \
 	-e SUBJECTCMD="$${SUBJECTCMD}" \
 	-e BODYCMD="$${BODYCMD}" \
+	-v $(pwd)/archive:/archive \
 	--name $(CNTNAME) $(DKRIMAGE) 
 
 docker-exec: ## Enters the container. Only needed for debugging.
@@ -28,6 +30,9 @@ docker-exec: ## Enters the container. Only needed for debugging.
 
 docker-logs: ## Shows the logs of the running container.
 	docker logs $(CNTNAME) 
+
+docker-logs-follow: ## Shows the logs of the running container.
+	docker logs $(CNTNAME) -f
 
 docker-stop: ## Stop the container
 	docker stop $(CNTNAME) ||:

@@ -10,18 +10,17 @@ FILENAME=${1}
 TARGETADDRESS=$(/usr/local/bin/postprocessing-targetaddresscmd ${FILENAME})
 ATTACHMENTFILENAME="$(/usr/local/bin/postprocessing-filenamecmd ${FILENAME})"
 ATTACHMENTFILEPATH="$(mktemp -d)/${ATTACHMENTFILENAME}"
-BODY=$(/usr/local/bin/postprocessing-bodycmd ${FILENAME})
+BODY=$(/usr/local/bin/postprocessing-bodycmd ${FILENAME} | iconv -t windows-1252)
 SUBJECT=$(/usr/local/bin/postprocessing-subjectcmd ${FILENAME})
 cp ${FILENAME} ${ATTACHMENTFILEPATH}
 
 echo "Postprocessing Info: $(date) TARGETADDRESS=${TARGETADDRESS} ATTACHMENTFILENAME=${ATTACHMENTFILENAME}" > /proc/1/fd/1
 
-if [ -z $TARGETADDRESS ]; then exit 1; fi
+/usr/local/bin/archive-document "${ATTACHMENTFILEPATH}" "${TARGETADDRESS}" > /proc/1/fd/1
 
 if ! [ -z ${TARGETADDRESS} ]; then
   /usr/local/bin/send-e-mail "${ATTACHMENTFILEPATH}" "${TARGETADDRESS}" "${SUBJECT}" "${BODY}" > /proc/1/fd/1
 fi 
 
-# @@TODO@@ docker volume!
-# rm -rf $(dirname ${ATTACHMENTFILENAME})
+# if [ -z $TARGETADDRESS ]; then exit 1; fi
 
